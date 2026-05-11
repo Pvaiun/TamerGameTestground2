@@ -1,30 +1,26 @@
-// DOM-based combat animations targeting the dossier columns.
-// Floats spawn over the relevant glyph portrait; shake/lunge/recoil are
-// CSS animations applied to the dossier column for the affected side.
-
 import { el } from './dom.js';
 
 function colFor(side) {
-  return document.querySelector(`.dossier-col.${side}`);
+  return document.querySelector(`.file-col.${side}`);
 }
 
 export function spawnFloat(side, text, kind = 'dmg') {
   const col = colFor(side);
-  const target = col ? col.querySelector('.glyph-portrait') : null;
+  const target = col ? (col.querySelector('.glyph-portrait') || col) : null;
   if (!target) return;
   const r = target.getBoundingClientRect();
-  const f = el('div', { class: 'floating ' + (kind === 'crit' ? 'crit' : kind === 'heal' ? 'heal' : '') }, text);
+  const f = el('div', { class: 'floating ' + (kind === 'compress' ? 'heal' : kind === 'crit' ? 'crit' : '') }, text);
   f.style.position = 'fixed';
   f.style.textAlign = 'center';
-  f.style.minWidth = '80px';
-  f.style.left = `${r.left + r.width / 2 - 40}px`;
+  f.style.minWidth = '64px';
+  f.style.left = `${r.left + r.width / 2 - 32}px`;
   f.style.top  = `${r.top + 8}px`;
   document.body.appendChild(f);
   setTimeout(() => f.remove(), 1000);
 }
 
 export function spawnCallout(text) {
-  const screen = document.querySelector('.dossier-screen');
+  const screen = document.querySelector('.battle-screen') || document.querySelector('#app');
   if (!screen) return;
   const r = screen.getBoundingClientRect();
   const c = el('div', { class: 'callout' }, text);
@@ -51,7 +47,6 @@ function pulseCol(side, cls) {
   const col = colFor(side);
   if (!col) return;
   col.classList.remove(cls);
-  // force reflow so the class can re-apply if already present
   void col.offsetWidth;
   col.classList.add(cls);
   setTimeout(() => col.classList.remove(cls), 600);

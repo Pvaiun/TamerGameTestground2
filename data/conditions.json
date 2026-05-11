@@ -1,0 +1,58 @@
+{
+  "_format": {
+    "note": "Conditions are stackable status effects. Each entry defines its tick behavior (when stacks emit effects), and how stacks decay. The five conditions are kept aligned with the writing: FEVERING (heat / unrest), MENDING (closure / care), DRAINED (depletion), BROKEN (instability), SEDATED (suppression). All conditions live in fighter.conditions as { id: stacks }.",
+    "tickOn": "ownTurnStart fires the tick at the start of the affected side's turn. cardPlay fires when the affected side plays any card.",
+    "decay": "endOfOwnTurn reduces stacks by 1 at end of affected side's turn. perCardPlay reduces 1 per card the affected side plays. none = persists.",
+    "target": "self means the tick affects the carrier; enemy means it affects the carrier's opponent. Most tick effects target self (carrier suffers / benefits)."
+  },
+  "FEVERING": {
+    "name": "Fevering",
+    "desc": "At your turn start, {stacks} pages are added to your file.",
+    "tickOn": "ownTurnStart",
+    "tickEffect": { "type": "fill", "target": "self", "perStack": 1 },
+    "decay": "none",
+    "cleansable": true,
+    "voiceApply": "{target} grows warm.",
+    "voiceTick": "{target} burns."
+  },
+  "MENDING": {
+    "name": "Mending",
+    "desc": "At your turn start, {stacks} pages are removed from your file. Decays each turn.",
+    "tickOn": "ownTurnStart",
+    "tickEffect": { "type": "compress", "target": "self", "perStack": 1 },
+    "decay": "endOfOwnTurn",
+    "cleansable": false,
+    "voiceApply": "{target} is being tended.",
+    "voiceTick": "{target}'s wounds close."
+  },
+  "DRAINED": {
+    "name": "Drained",
+    "desc": "At your turn start, lose {stacks} insight this turn. Decays each turn.",
+    "tickOn": "ownTurnStart",
+    "tickEffect": { "type": "insight", "target": "self", "perStack": -1 },
+    "decay": "endOfOwnTurn",
+    "cleansable": true,
+    "voiceApply": "{target} has been drained.",
+    "voiceTick": "{target} cannot lift."
+  },
+  "BROKEN": {
+    "name": "Broken",
+    "desc": "Cards cost +1 insight to play. Decays as you play cards.",
+    "tickOn": "none",
+    "tickEffect": null,
+    "decay": "perCardPlay",
+    "cleansable": true,
+    "voiceApply": "{target} has been broken.",
+    "voiceTick": "moving {target} reopens it."
+  },
+  "SEDATED": {
+    "name": "Sedated",
+    "desc": "You draw {stacks} fewer cards next turn. Decays each turn.",
+    "tickOn": "ownTurnStart",
+    "tickEffect": { "type": "lose_draw", "target": "self", "perStack": 1 },
+    "decay": "endOfOwnTurn",
+    "cleansable": true,
+    "voiceApply": "{target} has been dosed.",
+    "voiceTick": "{target} does not respond."
+  }
+}

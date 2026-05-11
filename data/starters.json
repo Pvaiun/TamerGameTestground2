@@ -1,0 +1,26 @@
+{
+  "_format": {
+    "note": "Starter casefiles. Each starter has a deck (card ids — duplicates allowed), starting file capacity, starting insight per turn, and starting hand size. The protagonist's species (for the glyph and dossier) is fixed to Lumenpup.",
+    "unlock": "Only starters with unlocked:true are available from the start. Others appear after archive milestones."
+  },
+  "patient_0413": {
+    "id": "patient_0413",
+    "name": "[Patient 0413]",
+    "subtitle": "Admitted [[8]] · file open",
+    "fileCap": 40,
+    "insightPerTurn": 3,
+    "handSize": 5,
+    "deck": [
+      "examine", "examine",
+      "treat", "treat", "treat", "treat",
+      "compress", "compress",
+      "press", "press"
+    ],
+    "unlocked": true,
+    "notes": [
+      "Subject arrived at the front entrance unaccompanied. No identification provided.",
+      "Vitals normal. Responds to questions. !!Does not remember the address.!!",
+      "Settled in room without resistance."
+    ]
+  }
+}

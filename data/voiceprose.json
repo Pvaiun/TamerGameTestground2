@@ -1,15 +1,9 @@
 {
   "_format": {
-    "note": "Patient-file prose for the dossier and battle log. Inline markup: ~~strike~~ for double-strike, [[N]] for an N-char redaction bar, **gold** for the gold accent (rare, on quietly charged words), !!text!! for blood-red text (warnings, refusals, the most charged moments). All prose is sentence case. Patient names appear in [brackets] in the templates. Subtitles + notes are written as institutional patient files in third-person clinical voice (she/he/they/it as fits each patient). Ability flavor + use/hit lines + passive voice prose use neutral they/them since these can transfer between creatures via breeding.",
-    "lookup": "Dossier reads: subtitles[species] || subtitles[type]; notes[species] || notes[type]. Battle log reads: actions[abilityKey].use || actionDefaults[element].use; same for hit/flavor. effectDefaults[kind] is consulted when an ability has no damage. afflictions[statusKey].apply / .tick are read on apply / per-turn-tick. noteAppends[species][wave] is appended to the species' notes for waves <= state.wave (currently used only by the protagonist, species 'Lumenpup').",
-    "templates": "{actor} = name of the doer. {target} = name of the receiver. {name} = ability display name. {status} = affliction name."
+    "note": "Three voice registers. Patient files: clinical third-person, [Bracketed] nicknames. Cards / log: neutral present-tense. Marginalia: first-person italic intrusive (rendered as .voice-marg). Markup: ~~strike~~, [[N]] (redaction bar), **gold**, !!red!!."
   },
+
   "subtitles": {
-    "fire": "Subject runs hot. Cause undetermined.",
-    "water": "Subject is wet through. The room is dry.",
-    "grass": "Subject grows in here. It should not.",
-    "light": "Subject lights what is around it. Not warmly.",
-    "dark": "Subject is hard to look at. Staff prefer not to.",
     "Emberkin": "The mother has not left.",
     "Ashmaw": "She has not stopped eating since admission.",
     "Cinderling": "The rest of the family was indoors.",
@@ -40,34 +34,11 @@
     "Voidling": "He kept it. Quiet. Mostly.",
     "Nightcreep": "Whoever brought her did not sign in.",
     "Wraithfin": "She insists she is the other one.",
-    "Umbragale": "She draws it on the wall every morning."
+    "Umbragale": "She draws it on the wall every morning.",
+    "the_attending": "The Attending will see you now."
   },
+
   "notes": {
-    "fire": [
-      "Subject runs hot. Source unknown.",
-      "Staff use insulated grips. Family ask if she is in pain.",
-      "We **say no**."
-    ],
-    "water": [
-      "Subject leaves a wet trail. The trail does not evaporate.",
-      "Patient was a swimmer.",
-      "Staff have begun to dream of ~~drowning~~ being underneath."
-    ],
-    "grass": [
-      "Subject grows toward the window.",
-      "Patient does not eat.",
-      "Has been here longer than ~~records~~ files indicate."
-    ],
-    "light": [
-      "Subject is luminous in low light.",
-      "Staff have begun closing one eye when checking on her.",
-      "Reports of headaches in adjacent wards. **Several.**"
-    ],
-    "dark": [
-      "Subject is photographed only with difficulty.",
-      "Patient does not face the camera.",
-      "Orderlies prefer to enter in pairs."
-    ],
     "Emberkin": [
       "Subject is the size of a six-month-old. ~~Fever.~~ Cold to the touch.",
       "Staff have not informed her [[12]]. She has not asked.",
@@ -222,8 +193,14 @@
       "Patient draws the same house every morning. Same windows. Same number on the door.",
       "She insists it ~~comes~~ has come for her.",
       "The address she gave matches no facility on record. The house !!is at the address!!."
+    ],
+    "the_attending": [
+      "The office is at the end of the hallway.",
+      "Staff cannot ~~recall~~ name the Attending. The files cannot either.",
+      "Your name is in the file. !!Both rooms now match.!!"
     ]
   },
+
   "noteAppends": {
     "Lumenpup": {
       "3": "Has begun referring to the south corridor as *home*.",
@@ -231,231 +208,96 @@
       "9": "Has stopped responding to designation 0413. !!Responds to 0412.!! Room 0413 now **vacant again.**"
     }
   },
-  "passives": {
-    "brutal": "They do not measure how hard.",
-    "swift": "They were not where the blow was.",
-    "thick_hide": "They arrived heavier than admission noted.",
-    "tide_guard": "The salt knows their name.",
-    "iron_grip": "Once they have hold of a thing.",
-    "glass_cannon": "They are given. ~~Nothing~~ Little kept back.",
-    "stone_skin": "Small things do not appear in the file.",
-    "bulwark": "Indifferent strikes do not remember them.",
-    "giant_form": "Subject is **larger** than admission noted.",
-    "inferno_heart": "Something hotter has been kept inside them.",
-    "tide_blessed": "The wet does not leave them.",
-    "verdant_soul": "Whatever they eat becomes green again.",
-    "sunforged": "They were hammered out of a kinder room.",
-    "shadowforged": "Hammered out of a place the light did not reach.",
-    "predators_edge": "They know where the page is thin.",
-    "tempo": "They keep a count staff cannot follow.",
-    "lightbearer": "They walk a step before their own light.",
-    "cornered": "They are worse when they cannot leave.",
-    "pristine": "Subject has not yet been ~~touched~~ filed.",
-    "photosynthesis": "They do not eat. The window is enough.",
-    "soul_drain": "Each strike returns smaller to them.",
-    "blooming": "Where they bleed, things grow.",
-    "vampire_touch": "What is given to them, they take more of.",
-    "aquaveil": "The room rearranges to keep them.",
-    "second_wind": "They rise once they have been called.",
-    "warm_blood": "Fevering does not take in them.",
-    "riposte": "They return what is given. Smaller.",
-    "iron_will": "The marks do not stay on them.",
-    "hex_eater": "What is laid on them, they finish.",
-    "featherweight": "They arrive where the others were going.",
-    "adrenal_surge": "When struck, something in them !!opens!!.",
-    "spite": "They do not stop when they are finished.",
-    "reflective_aura": "What was meant for them finds the sender.",
-    "counterstance": "They do not move until struck.",
-    "pyromancer": "The fevering finds their hand.",
-    "frostbite": "Where they touch, the room grows slower.",
-    "poisonous": "They leave something in every wound.",
-    "curse_weaver": "Their voice names. The named forget how to act.",
-    "status_lord": "Each mark they leave makes the next deeper.",
-    "vanguard": "They enter before staff can prepare them.",
-    "sentinel": "They tend the bench when not on the floor.",
-    "tag_out": "They take the marks with them when they go.",
-    "rearguard": "Behind, they are watching for the others.",
-    "pivot_master": "They slip the names laid on them.",
-    "spotter": "They watch the bench and quiet the marks there.",
-    "twin_soul": "Whatever happens to them, the bench feels half of.",
-    "dark_pact": "They paid in admission. The strength is theirs now.",
-    "mortal_coil": "When they are finishing, they are also beginning.",
-    "slow_burn": "They are warmer in the third hour. And the fourth.",
-    "berserker": "They refuse care. !!It works for them.!!",
-    "doubling_down": "When the blow lands, it lands again.",
-    "misty_form": "They are where staff do not expect.",
-    "eldritch_sight": "Type does not apply to them. ~~Yet they apply.~~",
-    "reckless_heart": "What they give, they do not feel as much.",
-    "zealot": "They are convinced. The blow follows.",
-    "patient_hunter": "They do not move first. They do not need to.",
-    "scavenger": "What others gather, they find later.",
-    "echo_form": "Whatever the room said last, they say again.",
-    "dreadful": "Subjects who see them at admission **lose weight**.",
-    "prepared": "They have read the file before staff did.",
-    "serene": "They do not register the dose.",
-    "lucky": "What is meant to miss them does. Except when it does not.",
-    "savage": "When they find it, they finish it."
+
+  "conditions": {
+    "FEVERING": { "name": "Fevering", "apply": "{target} grows warm.", "tick": "{target} burns." },
+    "MENDING":  { "name": "Mending",  "apply": "{target} is being tended.", "tick": "{target}'s wounds close." },
+    "DRAINED":  { "name": "Drained",  "apply": "{target} has been drained.", "tick": "{target} cannot lift." },
+    "BROKEN":   { "name": "Broken",   "apply": "{target} has been broken.", "tick": "moving {target} reopens it." },
+    "SEDATED":  { "name": "Sedated",  "apply": "{target} has been dosed.", "tick": "{target} does not respond." }
   },
-  "afflictions": {
-    "burn": {
-      "name": "Fevering",
-      "apply": "{target} grows warm.",
-      "tick": "{target} burns."
-    },
-    "bloom": {
-      "name": "Mending",
-      "apply": "{target} is being tended.",
-      "tick": "{target}'s wounds close."
-    },
-    "soaking": {
-      "name": "Drained",
-      "apply": "{target} has been drained.",
-      "tick": "{target} cannot lift."
-    },
-    "cursed": {
-      "name": "Broken",
-      "apply": "{target} has been broken.",
-      "tick": "Moving {target} reopens it."
-    },
-    "dazed": {
-      "name": "Sedated",
-      "apply": "{target} has been dosed.",
-      "tick": "{target} does not respond."
-    }
+
+  "cards": {
+    "examine": "You read another line of their file.",
+    "treat": "You complete a line of their record.",
+    "compress": "You take a page back from yourself.",
+    "reread": "You go back over the page.",
+    "press": "You press a line in.",
+    "suture": "You close it. It will hold.",
+    "field_note": "You write and the page writes back.",
+    "steady_hand": "The line is straight.",
+    "pyre": "Something warm again.",
+    "empty_chair": "You set it across. It is not for you.",
+    "mourners_vigil": "You give a page of yourself.",
+    "hold_light": "The room lasts a little longer.",
+    "inherit": "You take what they left.",
+    "aftermath": "What you have lost lands on them.",
+    "devour": "You bite the line and chew.",
+    "bite": "You take a piece. Some of it is you.",
+    "strangle": "Where it is already burning, it !!takes!!.",
+    "grow_in": "It is **growing in nicely**.",
+    "the_basement": "You go down. You return ~~hungrier~~ shorter.",
+    "from_the_wound": "What you have not closed, you !!use!!.",
+    "compress_l": "You keep your hand on it.",
+    "wait": "You do not move. The hand stays.",
+    "long_memory": "The room knows your name.",
+    "refuse": "Whatever was coming. ~~You~~ It does not.",
+    "held": "You take their wrist. They go quiet.",
+    "the_shell": "Nothing reaches you here. ~~Nothing.~~",
+    "echo": "What you do next, you also did before.",
+    "the_other_one": "It was here a moment ago.",
+    "slip": "You let them carry the rest.",
+    "substitute": "It does not have to be you.",
+    "came_back_wrong": "It is you. The brother is sure.",
+    "doubt": "They begin again. They are not sure they were.",
+    "open_the_door": "It was already open. You only named it.",
+    "keep_it_quiet": "You keep it small. You **keep it**.",
+    "marginalia": "Something gets written in the margin.",
+    "hex": "Three small things. Each one knows them.",
+    "the_visit": "You let it in. You do not turn around.",
+    "the_closet": "You leave the door cracked.",
+    "taint": "A page of you, in your own hand.",
+    "attending_note": "It fills with their name.",
+    "synthesis_haunted_mourning": "What is missing in them !!finds!! itself.",
+    "synthesis_devouring_double": "It takes a piece of itself.",
+    "synthesis_held_in_silence": "Whatever it meant to say, you keep it.",
+    "synthesis_long_aftermath": "It will close. Eventually.",
+    "synthesis_quiet_hunger": "It eats without waking.",
+    "synthesis_the_witness": "You see them seeing it."
   },
-  "actions": {
-    "pyre": {
-      "use": "{actor} uses {name}. They lean in close.",
-      "hit": "Something is warm again."
-    },
-    "inferno": {
-      "use": "{actor} releases {name}. The room cannot hold it.",
-      "hit": "What was inside is out."
-    },
-    "self_immolate": {
-      "use": "{actor} uses {name}. They feed it from their own.",
-      "hit": "They are !!smaller!! for it."
-    },
-    "surge": {
-      "use": "{actor} uses {name}. Water rises around them.",
-      "hit": "{target} cannot tell where the room ends."
-    },
-    "maelstrom": {
-      "use": "{actor} uses {name}. The water gathers.",
-      "hit": "The water finishes."
-    },
-    "bramble": {
-      "use": "{actor} uses {name}. Where they touch, it grows.",
-      "hit": "It does not let {target} go."
-    },
-    "spore_cloud": {
-      "use": "{actor} uses {name}. They open what was held.",
-      "hit": "The air thickens."
-    },
-    "radiance": {
-      "use": "{actor} uses {name}. They turn the light on what is on them.",
-      "hit": "What was on them lifts."
-    },
-    "sunbeam": {
-      "use": "{actor} uses {name}. Light gathers along their hand.",
-      "hit": "The room !!brightens!!."
-    },
-    "shadow_step": {
-      "use": "{actor} uses {name}. They are no longer where they were.",
-      "hit": "The blow lands as they leave."
-    },
-    "soulrend": {
-      "use": "{actor} uses {name}. They give from themselves.",
-      "hit": "Something of theirs is ~~gone~~ taken."
-    },
-    "mend": {
-      "use": "{actor} uses {name}. They bandage what is open.",
-      "hit": "The wound holds."
-    },
-    "tactical_retreat": {
-      "use": "{actor} uses {name}. The bench takes the next blow.",
-      "hit": ""
-    }
-  },
-  "actionDefaults": {
-    "fire": {
-      "use": "{actor} uses {name}.",
-      "hit": "{target} catches."
-    },
-    "water": {
-      "use": "{actor} uses {name}.",
-      "hit": "{target} is overtaken."
-    },
-    "grass": {
-      "use": "{actor} uses {name}.",
-      "hit": "{target} does not pull free."
-    },
-    "light": {
-      "use": "{actor} uses {name}.",
-      "hit": "{target} flinches."
-    },
-    "dark": {
-      "use": "{actor} uses {name}.",
-      "hit": "{target} gives."
-    },
-    "neutral": {
-      "use": "{actor} uses {name}.",
-      "hit": "{target} is struck."
-    }
-  },
-  "effectDefaults": {
-    "heal": {
-      "use": "{actor} attends to themselves.",
-      "hit": "The wound holds."
-    },
-    "buff": {
-      "use": "{actor} steadies.",
-      "hit": "Their grip ~~tightens~~ holds."
-    },
-    "debuff": {
-      "use": "{actor} unsettles them.",
-      "hit": "{target} slips."
-    },
-    "swap": {
-      "use": "{actor} steps back.",
-      "hit": "Another comes forward."
-    },
-    "status": {
-      "use": "{actor} ~~marks~~ names them.",
-      "hit": "The {status}."
-    },
-    "cleanse": {
-      "use": "{actor} clears themselves.",
-      "hit": "What was on them lifts."
-    },
-    "brace": {
-      "use": "{actor} braces.",
-      "hit": ""
-    },
-    "noop": {
-      "use": "{actor} ~~hesitates~~ waits.",
-      "hit": ""
-    }
-  },
+
   "events": {
-    "swap_out": "{actor} steps back.",
-    "swap_in": "{actor} comes forward to take the floor.",
-    "swap_yanked": "{actor} is ~~pulled~~ taken from the floor.",
-    "swap_none": "{actor} has no one to call.",
-    "swap_curse": "The break takes from {actor} on the way out.",
-    "swap_arrives_buffed": "{actor} arrives ~~bolstered~~ readied.",
-    "swap_arrives_healed": "{actor} arrives ~~bleeding~~ tended.",
-    "ability_fizzle": "{actor}'s {name} ~~fails~~ does not.",
-    "dazed_skip": "{actor} cannot ~~remember~~ act.",
-    "evade": "{target} ~~vanishes~~ is not where it was.",
-    "faint": "{actor} ~~dies~~ falls still.",
-    "step_in": "{actor} steps forward.",
-    "battle_open": "They are at the door. {enemies}.",
-    "phase_prepare": "{actor} ~~begins~~ prepares {name}.",
-    "phase_continue": "{actor} continues {name}.",
-    "phase_unleash": "{actor} ~~releases~~ unleashes {name}.",
-    "super": "It ~~lands deep~~ catches.",
-    "resist": "It ~~glances~~ slides off.",
-    "crit_tag": "The wound ~~opens~~ takes."
+    "room_enter":          "// page · room {n}",
+    "patient_in_door":     "{name} sits across the desk.",
+    "battle_open":         "The file between you opens.",
+    "patient_discharged":  "{name} is discharged.",
+    "player_admitted":     "!!Subject did not present for the second appointment.!!",
+    "absorb_offered":      "Their file offers what stays.",
+    "absorb_taken":        "You take {name}. Something of theirs is in your file now.",
+    "absorb_skipped":      "You close their file. ~~You keep it.~~ You do not keep it.",
+    "compile_enter":       "// page · compilation",
+    "compile_done":        "Two pages, one name. {diagnosis}.",
+    "boss_intro":          "The Attending will see you now.",
+    "boss_defeated":       "Discharge approved. ~~Subject~~ Patient may collect their belongings.",
+    "draw_empty":          "You go back through what you have already read.",
+    "out_of_insight":      "You do not have it in you to do that yet.",
+    "intent_negated":      "Whatever was coming. ~~You~~ It does not.",
+    "intent_rerolled":     "They begin again."
+  },
+
+  "marginalia": {
+    "intake": "*I do not remember walking in.*",
+    "first_room": "*The corridor is longer than it ought to be.*",
+    "early": "*The files do not have my name. Yet.*",
+    "post_absorb_first": "*One of theirs is mine now. I can feel where.*",
+    "post_absorb_taint": "*~~I do not~~ I cannot put it back.*",
+    "mid": "*The hallway is the same hallway.*",
+    "post_compile": "*Two things, in one hand.*",
+    "late": "*I have been here before. I am here again.*",
+    "boss_before": "*The office at the end of the hall has my name on the door.*",
+    "victory": "*I left. ~~I did not leave.~~ I left.*",
+    "defeat": "*I will be along shortly.*",
+    "absorb_many": "*There is less of me now than of them.*",
+    "absorb_first_taint": "*Something of me went into the page. !!Where?!!*"
   }
 }

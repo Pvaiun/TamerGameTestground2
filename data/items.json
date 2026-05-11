@@ -1,0 +1,90 @@
+{
+  "_format": {
+    "note": "Item definitions. Spawned in rooms by map.js based on archetype item_chance and item-specific spawn rules.",
+    "spawn": "Each item has a 'spawn' field describing where it can appear: 'any' (any item-allowing room), 'records' (records room only), 'office' (office only), 'supply' (supply closet only), 'attending_office' (attending's office only), 'ward' (patient room only).",
+    "effect": "When TAKEn, the item enters inventory. Effects fire when relevant (e.g., key is consumed when used on a locked door). Documents fire READ effects."
+  },
+  "exit_chart": {
+    "id": "exit_chart",
+    "name": "duty roster",
+    "spawn": "records",
+    "prose": "A duty roster from before the staff left. ~~Pinned to a folder marked CLOSURE.~~ One door is circled in red. The door marked: {exit_name}.",
+    "effect": "reveal_exit",
+    "unique": true
+  },
+  "schedule": {
+    "id": "schedule",
+    "name": "the schedule",
+    "spawn": "attending_office",
+    "prose": "The Attending's rounds. The page is dated for the **current week**. There is a route, an hour, and a column titled DEVIATIONS that has been filled in with names.",
+    "effect": "reveal_patrol",
+    "unique": true
+  },
+  "disguise": {
+    "id": "disguise",
+    "name": "staff coat",
+    "spawn": "office",
+    "prose": "A staff coat hanging on a hook. The name tag has been pulled off. ~~The pocket has~~ A pocket contains a pen.",
+    "effect": "disguise_once",
+    "unique": true
+  },
+  "sedative": {
+    "id": "sedative",
+    "name": "single-use sedative",
+    "spawn": "supply",
+    "prose": "A small foil packet. Contents will let you skip the next time the Attending notes you. They will note that you are sleeping.",
+    "effect": "absorb_one_note",
+    "stackable": true
+  },
+  "key_north": {
+    "id": "key_north",
+    "name": "front entrance key",
+    "spawn": "office",
+    "prose": "A small brass key. Tagged: FRONT.",
+    "effect": "key",
+    "unlocks": "n_exit",
+    "unique": true
+  },
+  "key_east": {
+    "id": "key_east",
+    "name": "service key",
+    "spawn": "supply",
+    "prose": "A worn brass key. Tagged: E-SERV.",
+    "effect": "key",
+    "unlocks": "e_exit",
+    "unique": true
+  },
+  "key_west": {
+    "id": "key_west",
+    "name": "ward key",
+    "spawn": "office",
+    "prose": "A small key. Tagged: W-BLOCK.",
+    "effect": "key",
+    "unlocks": "w_exit",
+    "unique": true
+  },
+  "your_file_fragment": {
+    "id": "your_file_fragment",
+    "name": "a fragment of your file",
+    "spawn": "records",
+    "prose": "A torn page from the file labelled 0413. *Subject was admitted on the night of ~~the [[3]] of [[8]]~~ — the date has been removed. Subject had no identification. Subject signed the intake.* Below: a signature. *It is yours.*",
+    "effect": "lore",
+    "unique": true
+  },
+  "second_chart": {
+    "id": "second_chart",
+    "name": "an old roster",
+    "spawn": "office",
+    "prose": "A roster from an earlier week. Some names have been ~~discharged~~ struck through. Some names you have seen on doors tonight.",
+    "effect": "lore",
+    "unique": true
+  },
+  "chapel_card": {
+    "id": "chapel_card",
+    "name": "prayer card",
+    "spawn": "chapel",
+    "prose": "A small printed card from the chapel. *In the hour of trial, the gate stands open ~~to those who walked in~~ to those who can find it.*",
+    "effect": "lore",
+    "unique": true
+  }
+}

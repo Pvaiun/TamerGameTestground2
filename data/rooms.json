@@ -1,0 +1,100 @@
+{
+  "_format": {
+    "note": "Room archetypes. Used by data/layout.json to fill instances. Each archetype defines hiding slots, whether a patient is placed here, item chance, and ambient prose. Specific room instances inherit from archetype and override per-instance.",
+    "ambient": "Short prose presented when the player is in / looks into this kind of room. May contain corruption markup."
+  },
+  "bed": {
+    "name": "your bed",
+    "ambient": "Your bed. The sheets are tucked the way the staff did them. ~~You~~ The chart says you do not sleep.",
+    "hiding_slots": 1,
+    "patient_allowed": false,
+    "item_chance": 0.0,
+    "is_start": true,
+    "safe": true
+  },
+  "ward": {
+    "name": "patient room",
+    "ambient": "A bedroom. The light is on under the door. The chart on the doorframe has been re-stapled.",
+    "ambient_empty": "An empty bedroom. The bed is made. The chart says the room is occupied.",
+    "hiding_slots": 1,
+    "patient_allowed": true,
+    "item_chance": 0.25
+  },
+  "corridor": {
+    "name": "hallway",
+    "ambient": "The corridor stretches. The lights are on. They flicker once.",
+    "hiding_slots": 0,
+    "patient_allowed": false,
+    "item_chance": 0.05,
+    "exposed": true
+  },
+  "junction": {
+    "name": "junction",
+    "ambient": "Two corridors cross. The signage has been [[8]] over.",
+    "hiding_slots": 0,
+    "patient_allowed": false,
+    "item_chance": 0.0,
+    "exposed": true
+  },
+  "supply": {
+    "name": "supply closet",
+    "ambient": "Shelves of linens, gloves, and paperwork. A small light over the desk.",
+    "hiding_slots": 2,
+    "patient_allowed": false,
+    "item_chance": 0.7
+  },
+  "office": {
+    "name": "staff office",
+    "ambient": "A desk with a half-finished form. A coffee cup that is still warm. ~~No one~~ The staff have left.",
+    "hiding_slots": 1,
+    "patient_allowed": false,
+    "item_chance": 0.5
+  },
+  "records": {
+    "name": "records room",
+    "ambient": "Filing cabinets, ceiling to floor. Most are labelled. **One** is yours.",
+    "hiding_slots": 2,
+    "patient_allowed": false,
+    "item_chance": 0.85,
+    "has_records": true
+  },
+  "stairwell": {
+    "name": "stairwell",
+    "ambient": "Concrete steps. The number on the wall has been re-painted. The door above is locked.",
+    "hiding_slots": 1,
+    "patient_allowed": false,
+    "item_chance": 0.1
+  },
+  "dayroom": {
+    "name": "day room",
+    "ambient": "Chairs along the walls. The television is on. It does not show anything.",
+    "hiding_slots": 1,
+    "patient_allowed": false,
+    "item_chance": 0.15
+  },
+  "attending_office": {
+    "name": "the Attending's office",
+    "ambient": "Dark. The desk is covered in files. !!One of them is yours.!! The schedule is pinned to the wall.",
+    "hiding_slots": 1,
+    "patient_allowed": false,
+    "item_chance": 1.0,
+    "is_attending_office": true,
+    "forbidden": true
+  },
+  "exit": {
+    "name": "exit door",
+    "ambient": "An exterior door. The hallway air is colder here. ~~It is unlocked.~~ It is locked at night.",
+    "hiding_slots": 0,
+    "patient_allowed": false,
+    "item_chance": 0.0,
+    "is_exit_candidate": true,
+    "exposed": true
+  },
+  "chapel": {
+    "name": "chapel",
+    "ambient": "A small chapel. The pews are empty. The cross above the altar is on backwards.",
+    "hiding_slots": 1,
+    "patient_allowed": false,
+    "item_chance": 0.3
+  }
+}

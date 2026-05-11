@@ -3,6 +3,67 @@
     "note": "Three voice registers. Patient files: clinical third-person, [Bracketed] nicknames. Cards / log: neutral present-tense. Marginalia: first-person italic intrusive (rendered as .voice-marg). Markup: ~~strike~~, [[N]] (redaction bar), **gold**, !!red!!."
   },
 
+  "intake": [
+    "You wake without sound. The light is on under the door. ~~You~~ Someone has tucked the sheets the way the staff used to.",
+    "On the chart at the foot of the bed: Patient 0413. Admitted ~~the [[3]] of [[8]]~~ — the date has been removed. !!The chart has been signed.!! The signature is yours.",
+    "You do not remember walking in. *I do not remember walking in.* The hospital is closing in seven nights. The Attending requires final files. You can hear them, somewhere, finishing one."
+  ],
+
+  "nights": {
+    "before": {
+      "1": "*The corridor is longer than it ought to be. The numbers on the doors do not run in order.*",
+      "2": "*I am keeping a count of the nights now. The chart at the foot of my bed has begun to make a count of its own.*",
+      "3": "*There is a sound the wing makes when no one is awake. I should not be awake.*",
+      "4": "*Something I read tonight is repeating in my mouth. I cannot remember reading it.*",
+      "5": "*The Attending was nearer last night than the night before. Their schedule says they were not.*",
+      "6": "*I think tomorrow night I have to do it.*",
+      "7": "*Last night I dreamt about the door. The dream had my signature on the back of it.*"
+    },
+    "after": {
+      "uncaught": "*Back in the bed. The sheets are tucked the way they were. I did not tuck them.*",
+      "noted_few": "*The Attending wrote something on me tonight. I read it but cannot remember it.*",
+      "noted_many": "*There is a column on my file that did not have a heading yesterday. It does now.*",
+      "asleep_in_hall": "*I do not remember the rest of the night. ~~I do not~~ I remember waking here.*"
+    }
+  },
+
+  "attending": {
+    "note_caught_hallway": "Subject located in the south corridor at the [[2]] hour. Subject was not in bed.",
+    "note_caught_ward": "Subject was found near {patient}. Subject did not appear to be visiting.",
+    "note_caught_supply": "Subject was found in supply. Subject was not asked.",
+    "note_caught_office": "Subject was found at the staff desk. ~~Subject was reading.~~ The pen was in subject's hand.",
+    "note_caught_records": "Subject was in records. Subject's file was open. Subject was reading it.",
+    "note_caught_attending_office": "Subject was in my office. !!Subject signed the registry.!!",
+    "note_door": "Subject attempted the {door} at the [[2]] hour. The door was locked.",
+    "note_taking": "Subject removed an article from {room}. The article has been logged as returned to the cabinet.",
+    "note_reading": "Subject was observed reading. The page subject was reading is in the file.",
+    "approach_north": "footsteps approaching from the north.",
+    "approach_south": "footsteps approaching from the south.",
+    "approach_east": "footsteps approaching from the east.",
+    "approach_west": "footsteps approaching from the west.",
+    "approach_here": "the door opens.",
+    "passes_through": "the Attending passes through the room. The pen does not come out.",
+    "leaves_room": "the Attending closes the door behind them."
+  },
+
+  "events": {
+    "night_start": "// night {n} of 7",
+    "night_end_safe": "you make it back to bed.",
+    "night_end_caught_out": "you fall asleep in the hallway.",
+    "exit_attempt_wrong": "the door does not open. Something on the other side does.",
+    "exit_attempt_right": "the door opens. The hallway air is colder. There is a road beyond, and a [[6]].",
+    "exit_attempt_locked": "the door is locked. You do not have the key.",
+    "took_item": "you take {item}.",
+    "read_item": "you read.",
+    "hide_in": "you hide in {spot}.",
+    "unhide": "you come out.",
+    "saw_patient_first": "you have not seen this patient before.",
+    "wait": "you wait. The wing makes the sound it makes.",
+    "listen_silent": "the corridor is quiet.",
+    "listen_footstep": "{dir}",
+    "listen_patient": "you can hear {patient} through the wall."
+  },
+
   "subtitles": {
     "Emberkin": "The mother has not left.",
     "Ashmaw": "She has not stopped eating since admission.",

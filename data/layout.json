@@ -1,0 +1,61 @@
+{
+  "_format": {
+    "note": "Fixed hospital floor plan. Rooms have id, archetype (key in data/rooms.json), x/y for rendering only. Adjacency is determined by 'edges'. The 'real' exit each run is randomly chosen from the rooms whose archetype has is_exit_candidate. The Records room contains the document identifying it. The Attending's office is forbidden and on the south path.",
+    "grid": "Positions are integers in a 9-wide x 8-tall grid, used only by the floor-plan renderer. Rooms can sit anywhere; edges define what connects to what.",
+    "name_override": "If a room has a 'name' field, it overrides the archetype's name for that instance."
+  },
+  "size": { "w": 9, "h": 8 },
+  "rooms": [
+    { "id": "bed", "archetype": "bed", "x": 4, "y": 4, "name": "your bed (room 0413)" },
+
+    { "id": "w_hall_1", "archetype": "corridor", "x": 3, "y": 4 },
+    { "id": "w_hall_2", "archetype": "corridor", "x": 2, "y": 4 },
+    { "id": "w_hall_3", "archetype": "corridor", "x": 1, "y": 4 },
+    { "id": "w_exit", "archetype": "exit", "x": 0, "y": 4, "name": "west service door" },
+
+    { "id": "w_ward_a", "archetype": "ward", "x": 2, "y": 3 },
+    { "id": "w_ward_b", "archetype": "ward", "x": 1, "y": 3 },
+    { "id": "w_ward_c", "archetype": "ward", "x": 2, "y": 5 },
+    { "id": "w_ward_d", "archetype": "ward", "x": 1, "y": 5 },
+    { "id": "w_office", "archetype": "office", "x": 3, "y": 5 },
+
+    { "id": "e_hall_1", "archetype": "corridor", "x": 5, "y": 4 },
+    { "id": "e_hall_2", "archetype": "corridor", "x": 6, "y": 4 },
+    { "id": "e_hall_3", "archetype": "corridor", "x": 7, "y": 4 },
+    { "id": "e_exit", "archetype": "exit", "x": 8, "y": 4, "name": "east emergency door" },
+
+    { "id": "e_ward_a", "archetype": "ward", "x": 6, "y": 3 },
+    { "id": "e_ward_b", "archetype": "ward", "x": 7, "y": 3 },
+    { "id": "e_ward_c", "archetype": "ward", "x": 6, "y": 5 },
+    { "id": "e_ward_d", "archetype": "ward", "x": 7, "y": 5 },
+    { "id": "e_supply", "archetype": "supply", "x": 5, "y": 3 },
+
+    { "id": "n_hall_1", "archetype": "corridor", "x": 4, "y": 3 },
+    { "id": "n_hall_2", "archetype": "corridor", "x": 4, "y": 2 },
+    { "id": "n_ward_a", "archetype": "ward", "x": 3, "y": 2 },
+    { "id": "n_ward_b", "archetype": "ward", "x": 5, "y": 2 },
+    { "id": "chapel", "archetype": "chapel", "x": 4, "y": 1 },
+    { "id": "n_exit", "archetype": "exit", "x": 4, "y": 0, "name": "front entrance" },
+
+    { "id": "s_hall_1", "archetype": "corridor", "x": 4, "y": 5 },
+    { "id": "s_hall_2", "archetype": "corridor", "x": 4, "y": 6 },
+    { "id": "records", "archetype": "records", "x": 3, "y": 6 },
+    { "id": "dayroom", "archetype": "dayroom", "x": 5, "y": 6 },
+    { "id": "attending_office", "archetype": "attending_office", "x": 4, "y": 7 }
+  ],
+  "edges": [
+    ["bed", "w_hall_1"], ["w_hall_1", "w_hall_2"], ["w_hall_2", "w_hall_3"], ["w_hall_3", "w_exit"],
+    ["w_hall_2", "w_ward_a"], ["w_hall_3", "w_ward_b"],
+    ["w_hall_1", "w_office"], ["w_office", "w_ward_c"], ["w_ward_c", "w_ward_d"],
+
+    ["bed", "e_hall_1"], ["e_hall_1", "e_hall_2"], ["e_hall_2", "e_hall_3"], ["e_hall_3", "e_exit"],
+    ["e_hall_2", "e_ward_a"], ["e_hall_3", "e_ward_b"],
+    ["e_hall_1", "e_supply"], ["e_supply", "e_ward_c"], ["e_ward_c", "e_ward_d"],
+
+    ["bed", "n_hall_1"], ["n_hall_1", "n_hall_2"], ["n_hall_2", "chapel"], ["chapel", "n_exit"],
+    ["n_hall_2", "n_ward_a"], ["n_hall_2", "n_ward_b"],
+
+    ["bed", "s_hall_1"], ["s_hall_1", "s_hall_2"], ["s_hall_2", "records"], ["s_hall_2", "dayroom"],
+    ["s_hall_2", "attending_office"]
+  ]
+}

@@ -1,17 +1,17 @@
-export const CARDS = {};
+export const ROOMS = {};
+export const LAYOUT = { rooms: [], edges: [], size: { w: 9, h: 8 } };
+export const ITEMS = {};
 export const PATIENTS = {};
-export const CONDITIONS = {};
-export const RECIPES = { recipes: [] };
-export const STARTERS = {};
+export const ATTENDING = { voice: {}, nights: [] };
 export const GLYPHS = {};
 export const VOICE = {
+  intake: [],
+  nights: { before: {}, after: {} },
+  attending: {},
+  events: {},
   subtitles: {},
   notes: {},
   noteAppends: {},
-  conditions: {},
-  cards: {},
-  events: {},
-  marginalia: {},
 };
 
 async function fetchJson(path) {
@@ -28,41 +28,32 @@ function purgeMeta(obj) {
 }
 
 export async function loadData() {
-  const [cards, patients, conditions, recipes, starters, glyphs, voice] = await Promise.all([
-    fetchJson('data/cards.json'),
+  const [rooms, layout, items, patients, attending, glyphs, voice] = await Promise.all([
+    fetchJson('data/rooms.json'),
+    fetchJson('data/layout.json'),
+    fetchJson('data/items.json'),
     fetchJson('data/patients.json'),
-    fetchJson('data/conditions.json'),
-    fetchJson('data/recipes.json'),
-    fetchJson('data/starters.json'),
+    fetchJson('data/attending.json'),
     fetchJson('data/glyphs.json'),
     fetchJson('data/voiceprose.json'),
   ]);
-  Object.assign(CARDS, purgeMeta({ ...cards }));
+  Object.assign(ROOMS, purgeMeta({ ...rooms }));
+  LAYOUT.rooms = layout.rooms || [];
+  LAYOUT.edges = layout.edges || [];
+  LAYOUT.size = layout.size || { w: 9, h: 8 };
+  Object.assign(ITEMS, purgeMeta({ ...items }));
   Object.assign(PATIENTS, purgeMeta({ ...patients }));
-  Object.assign(CONDITIONS, purgeMeta({ ...conditions }));
-  RECIPES.recipes = recipes.recipes || [];
-  Object.assign(STARTERS, purgeMeta({ ...starters }));
+  ATTENDING.voice = attending.voice || {};
+  ATTENDING.nights = attending.nights || [];
   for (const [k, v] of Object.entries(glyphs)) {
     if (k.startsWith('_')) continue;
     GLYPHS[k] = v;
   }
-  Object.assign(VOICE.subtitles,    voice.subtitles    || {});
-  Object.assign(VOICE.notes,        voice.notes        || {});
-  Object.assign(VOICE.noteAppends,  voice.noteAppends  || {});
-  Object.assign(VOICE.conditions,   voice.conditions   || {});
-  Object.assign(VOICE.cards,        voice.cards        || {});
-  Object.assign(VOICE.events,       voice.events       || {});
-  Object.assign(VOICE.marginalia,   voice.marginalia   || {});
+  VOICE.intake = voice.intake || [];
+  VOICE.nights = voice.nights || { before: {}, after: {} };
+  VOICE.attending = voice.attending || {};
+  VOICE.events = voice.events || {};
+  Object.assign(VOICE.subtitles, voice.subtitles || {});
+  Object.assign(VOICE.notes, voice.notes || {});
+  Object.assign(VOICE.noteAppends, voice.noteAppends || {});
 }
-
-export const SCHOOLS = ['GRIEF', 'HUNGER', 'STILLNESS', 'DISSOCIATION', 'INTRUSION'];
-export const SCHOOL_LABEL = {
-  GRIEF: 'grief',
-  HUNGER: 'hunger',
-  STILLNESS: 'stillness',
-  DISSOCIATION: 'dissociation',
-  INTRUSION: 'intrusion',
-  BASIC: 'admission',
-  SYNTHESIS: 'synthesis',
-  BOSS: 'attending',
-};

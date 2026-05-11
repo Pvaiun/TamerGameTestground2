@@ -1,80 +1,22 @@
 import { state } from '../state.js';
 import { app, el } from './dom.js';
-import { renderStart, renderIntake, renderRoom, renderAbsorb, renderCompile, renderVictory, renderGameover, renderArchive } from './screens.js';
-import { renderBattle } from './battle.js';
+import { renderStart, renderIntake, renderNightStart, renderNightEnd, renderVictory, renderGameover, renderArchive } from './screens.js';
+import { renderExplore } from './explore.js';
 import { VERSION } from '../version.js';
 import { parseProse } from './textCorrupt.js';
-import { CONDITIONS } from '../data.js';
-
-function openHelpModal() {
-  const modalRoot = document.getElementById('modal-root');
-  if (!modalRoot) return;
-  modalRoot.innerHTML = '';
-  const scrim = el('div', { class: 'modal-scrim', onclick: (e) => { if (e.target === scrim) modalRoot.innerHTML = ''; } });
-  const modal = el('div', { class: 'doc-modal help-modal' });
-  modal.appendChild(el('div', { class: 'page-tag' }, '// page · reference'));
-  modal.appendChild(el('h2', { class: 'page-heading-sub' }, 'how the game is played'));
-
-  const rules = document.createElement('div');
-  rules.className = 'help-section';
-  rules.innerHTML = `
-    <p><strong>Combat.</strong> Two files face each other. You fill theirs by playing cards; they fill yours each turn by acting on a telegraphed intent. When one file is full, that side is discharged (theirs) or admitted (yours).</p>
-    <p><strong>Insight.</strong> You start each turn with insight (your energy). Cards cost insight to play. You draw 5 cards per turn. Hand is discarded at turn end unless retained.</p>
-    <p><strong>Treatments.</strong> ${parseProse('**Fill** adds pages to a file. **Compress** removes pages from a file. Conditions stack and tick over turns. Cards exhaust if marked.')}</p>
-    <p><strong>Absorption.</strong> After winning, you may absorb one card from the patient's pool — and add a TAINT to your own file (a dead draw). Or close their file and take nothing.</p>
-    <p><strong>Compilation.</strong> At rooms 3, 6, 9: combine two cards into a synthesis. Schools-paired produce named diagnoses, which persist in the archive across runs.</p>
-    <p><strong>The Attending.</strong> Final boss at room 10. Their file capacity scales with how many cards you absorbed. They will add Attending Notes to your draw pile.</p>
-  `;
-  modal.appendChild(rules);
-
-  modal.appendChild(el('h3', { class: 'rules-h' }, 'conditions'));
-  const condList = el('div', { class: 'help-conditions' });
-  for (const [id, def] of Object.entries(CONDITIONS)) {
-    if (id.startsWith('_')) continue;
-    condList.appendChild(el('div', { class: `cond cond-${id.toLowerCase()}` }, [
-      el('span', { class: 'cond-name' }, def.name),
-    ]));
-    const dp = document.createElement('p');
-    dp.className = 'help-cond-desc';
-    dp.textContent = def.desc.replace('{stacks}', 'N');
-    condList.appendChild(dp);
-  }
-  modal.appendChild(condList);
-
-  modal.appendChild(el('h3', { class: 'rules-h' }, 'schools'));
-  const schoolList = document.createElement('div');
-  schoolList.className = 'help-schools';
-  schoolList.innerHTML = `
-    <div><span class="school-tag school-grief">grief</span> absence, loss. Sacrifice/exhaust cards; scale on losses.</div>
-    <div><span class="school-tag school-hunger">hunger</span> consumption. High damage; cost in pages or cards.</div>
-    <div><span class="school-tag school-stillness">stillness</span> waiting. Defense, retains, MENDING, multi-turn payoffs.</div>
-    <div><span class="school-tag school-dissociation">dissociation</span> identity. Copy, transfer, redirect.</div>
-    <div><span class="school-tag school-intrusion">intrusion</span> what should not be. Status afflicting, chaos, summons.</div>
-  `;
-  modal.appendChild(schoolList);
-
-  modal.appendChild(el('div', { class: 'action-row' }, [
-    el('button', { class: 'doc-button', onclick: () => { modalRoot.innerHTML = ''; } }, '▸ close')
-  ]));
-  scrim.appendChild(modal);
-  modalRoot.appendChild(scrim);
-}
-
-export { openHelpModal };
 
 export function render() {
   const root = app();
   if (!root) return;
   root.innerHTML = '';
 
-  if (state.screen === 'battle') {
-    renderBattle(root);
+  if (state.screen === 'explore') {
+    renderExplore(root);
     return;
   }
 
   const wrap = el('div', { class: 'app-wrap' });
-
-  const helpBtn = el('button', { class: 'masthead-help', onclick: () => openHelpModal() }, '?');
+  const helpBtn = el('button', { class: 'masthead-help', title: 'reference', onclick: () => openHelpModal() }, '?');
   const masthead = el('div', { class: 'masthead' }, [
     el('div', { class: 'masthead-title' }, '// bloodlines'),
     el('div', { class: 'masthead-right' }, [
@@ -85,20 +27,56 @@ export function render() {
   wrap.appendChild(masthead);
 
   const page = el('div', { class: 'doc-page' });
-
   switch (state.screen) {
-    case 'start':    renderStart(page);    break;
-    case 'intake':   renderIntake(page);   break;
-    case 'room':     renderRoom(page);     break;
-    case 'absorb':   renderAbsorb(page);   break;
-    case 'compile':  renderCompile(page);  break;
-    case 'victory':  renderVictory(page);  break;
-    case 'gameover': renderGameover(page); break;
-    case 'archive':  renderArchive(page);  break;
+    case 'start':       renderStart(page);       break;
+    case 'intake':      renderIntake(page);      break;
+    case 'night_start': renderNightStart(page);  break;
+    case 'night_end':   renderNightEnd(page);    break;
+    case 'victory':     renderVictory(page);     break;
+    case 'gameover':    renderGameover(page);    break;
+    case 'archive':     renderArchive(page);     break;
     default:
-      page.appendChild(el('p', {}, `Unknown screen: ${state.screen}`));
+      page.appendChild(el('p', {}, `unknown screen: ${state.screen}`));
   }
-
   wrap.appendChild(page);
   root.appendChild(wrap);
+}
+
+export function openHelpModal() {
+  const modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) return;
+  modalRoot.innerHTML = '';
+  const scrim = el('div', { class: 'modal-scrim', onclick: (e) => { if (e.target === scrim) modalRoot.innerHTML = ''; } });
+  const modal = el('div', { class: 'doc-modal help-modal' });
+  modal.appendChild(el('div', { class: 'page-tag' }, '// page · reference'));
+  modal.appendChild(el('h2', { class: 'page-heading-sub' }, 'rules'));
+  const body = document.createElement('div');
+  body.className = 'help-section';
+  body.innerHTML = `
+    <p><strong>Seven nights.</strong> The Hospital is closing. You are Patient 0413. You do not remember walking in. The Attending requires final files. Get out before night seven or be admitted.</p>
+    <p><strong>Each night</strong> you wake at midnight with 30 time-units before lights-on. You can move room to room, look into rooms without entering, listen at doors, hide in cabinets, take items, read what you find. At end of night you must be back in your bed. Otherwise you fall asleep in the hallway.</p>
+    <p><strong>The Attending</strong> walks the corridors. ${parseProse('If they enter your room and you are not hidden, ~~it is over~~ they note you. Six notes is a warning. Twelve is admission.')}</p>
+    <p><strong>The exit.</strong> There are three doors that could be exits. One is the real exit this run. The duty roster (records room) names it. The keys (offices, supply) open it. Use the right door, with the right key, on any night.</p>
+    <p><strong>The patients</strong> are in their rooms. You are not here for them. Walking past their doors is sometimes loud. Looking in is sometimes worse.</p>
+  `;
+  modal.appendChild(body);
+  modal.appendChild(el('h3', { class: 'rules-h' }, 'verbs'));
+  const verbs = document.createElement('div');
+  verbs.className = 'help-verbs';
+  verbs.innerHTML = `
+    <div><b>MOVE</b> into an adjacent room.</div>
+    <div><b>LOOK</b> into an adjacent room without entering.</div>
+    <div><b>LISTEN</b> at the doorway — hear the Attending's direction.</div>
+    <div><b>HIDE</b> in the current room if it has a hiding spot.</div>
+    <div><b>TAKE</b> an item from the current room.</div>
+    <div><b>READ</b> a document.</div>
+    <div><b>WAIT</b> — let one time-unit pass.</div>
+    <div><b>USE EXIT</b> at an exit door (correct key required).</div>
+  `;
+  modal.appendChild(verbs);
+  modal.appendChild(el('div', { class: 'action-row' }, [
+    el('button', { class: 'doc-button', onclick: () => { modalRoot.innerHTML = ''; } }, '▸ close'),
+  ]));
+  scrim.appendChild(modal);
+  modalRoot.appendChild(scrim);
 }

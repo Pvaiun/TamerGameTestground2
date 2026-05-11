@@ -1,429 +1,187 @@
 {
   "_format": {
-    "note": "Each entry is a patient template. fileCap = pages before discharge. cards = pool of card ids offered after victory. script = an array of intents the patient cycles through; index increments each turn. difficulty: 1 (rooms 1-2), 2 (rooms 4-5), 3 (rooms 7-8). The boss [the_attending] is special-cased in src/patient.js.",
-    "intent_effect_types": "fill (add pages to player's file), condition (apply condition to player), self_compress (remove pages from own file), self_condition (apply condition to self), self_cleanse (remove conditions from self).",
-    "telegraph": "What the player sees as the upcoming move. Kept terse, third-person clinical."
+    "note": "Patient placements. Each patient is assigned to one room in the run (chosen at run start from the patient pool). Patient prose lives in data/voiceprose.json (subtitles + notes), unchanged. Each entry here has the species, the ambient effect on the surrounding rooms, and how the patient is observed.",
+    "ambient_effects": "noisy: any time you ACT in an adjacent room, there is a 25% chance the Attending hears, gaining 1 patrol bias toward your column. dread: looking into this room costs +1 file note unless you've seen them before. cold: you cannot HIDE in adjacent rooms. wandering: this patient occasionally appears one room over from their bed (rare, telegraphed). silent: no effect; the room reads as empty unless you LOOK closely.",
+    "see_line": "What you see when you LOOK into the room (short)."
   },
   "Emberkin": {
     "species": "Emberkin",
     "school": "GRIEF",
-    "name": "[The mother has not left.]",
-    "fileCap": 24,
-    "difficulty": 1,
-    "cards": ["pyre", "empty_chair", "mourners_vigil"],
-    "script": [
-      { "telegraph": "She hums to it.", "effects": [{ "type": "fill", "amount": 3 }] },
-      { "telegraph": "She sets a chair.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "She hums to it.", "effects": [{ "type": "fill", "amount": 3 }] },
-      { "telegraph": "She does not look up.", "effects": [{ "type": "fill", "amount": 5 }] }
-    ]
+    "ambient": "silent",
+    "see_line": "She is in the chair. The bed across from her is made."
+  },
+  "Ashmaw": {
+    "species": "Ashmaw",
+    "school": "HUNGER",
+    "ambient": "noisy",
+    "see_line": "She is chewing. You cannot see what."
   },
   "Cinderling": {
     "species": "Cinderling",
     "school": "GRIEF",
-    "name": "[Only one home.]",
-    "fileCap": 22,
-    "difficulty": 1,
-    "cards": ["pyre", "hold_light", "inherit"],
-    "script": [
-      { "telegraph": "She asks where the others are.", "effects": [{ "type": "fill", "amount": 2 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "She listens for the porch.", "effects": [{ "type": "fill", "amount": 3 }] },
-      { "telegraph": "She lights one.", "effects": [{ "type": "fill", "amount": 4 }] }
-    ]
-  },
-  "Frostfin": {
-    "species": "Frostfin",
-    "school": "GRIEF",
-    "name": "[Froze waiting.]",
-    "fileCap": 26,
-    "difficulty": 1,
-    "cards": ["empty_chair", "hold_light", "aftermath"],
-    "script": [
-      { "telegraph": "She watches the door.", "effects": [{ "type": "fill", "amount": 2 }] },
-      { "telegraph": "Her hand has not warmed.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 2 }] },
-      { "telegraph": "She does not turn the page.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "Still no one.", "effects": [{ "type": "fill", "amount": 5 }] }
-    ]
-  },
-  "Glimmerfox": {
-    "species": "Glimmerfox",
-    "school": "GRIEF",
-    "name": "[Dog that did not.]",
-    "fileCap": 38,
-    "difficulty": 3,
-    "cards": ["aftermath", "mourners_vigil", "inherit"],
-    "script": [
-      { "telegraph": "He doesn't blink.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "He still pets it.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 1 }, { "type": "fill", "amount": 3 }] },
-      { "telegraph": "Forty years pass.", "effects": [{ "type": "fill", "amount": 8 }] },
-      { "telegraph": "The family looks away.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 2 }] }
-    ]
-  },
-  "Dawnstag": {
-    "species": "Dawnstag",
-    "school": "GRIEF",
-    "name": "[Firstborn.]",
-    "fileCap": 34,
-    "difficulty": 2,
-    "cards": ["pyre", "hold_light", "aftermath"],
-    "script": [
-      { "telegraph": "He says his mother's name.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "She does not know him.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 2 }] },
-      { "telegraph": "He says his uncle's.", "effects": [{ "type": "fill", "amount": 6 }] }
-    ]
+    "ambient": "silent",
+    "see_line": "She is on the floor. She is listening for the porch."
   },
   "Pyrelord": {
     "species": "Pyrelord",
     "school": "GRIEF",
-    "name": "[Father, present.]",
-    "fileCap": 46,
-    "difficulty": 3,
-    "cards": ["mourners_vigil", "inherit", "aftermath"],
-    "script": [
-      { "telegraph": "He presides.", "effects": [{ "type": "fill", "amount": 6 }] },
-      { "telegraph": "He knows their names.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 2 }] },
-      { "telegraph": "He has not left since 1986.", "effects": [{ "type": "fill", "amount": 9 }] },
-      { "telegraph": "He waits for daughters.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 3 }] }
-    ]
+    "ambient": "dread",
+    "see_line": "He is in his armchair. The chair is empty. He is in it."
   },
-
-  "Ashmaw": {
-    "species": "Ashmaw",
-    "school": "HUNGER",
-    "name": "[Still hungry.]",
-    "fileCap": 30,
-    "difficulty": 2,
-    "cards": ["devour", "bite", "from_the_wound"],
-    "script": [
-      { "telegraph": "She opens her mouth.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "She has not stopped.", "effects": [{ "type": "fill", "amount": 4 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "She is still asking.", "effects": [{ "type": "fill", "amount": 7 }] }
-    ]
-  },
-  "Charnel": {
-    "species": "Charnel",
-    "school": "HUNGER",
-    "name": "[Walked here from [[6]].]",
-    "fileCap": 42,
-    "difficulty": 3,
-    "cards": ["bite", "strangle", "from_the_wound"],
-    "script": [
-      { "telegraph": "She does not sit.", "effects": [{ "type": "fill", "amount": 6 }] },
-      { "telegraph": "She approaches.", "effects": [{ "type": "fill", "amount": 4 }, { "type": "fill", "amount": 4 }] },
-      { "telegraph": "She finishes it.", "effects": [{ "type": "fill", "amount": 9 }] },
-      { "telegraph": "She has not stopped.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 2 }] }
-    ]
-  },
-  "Deepmaw": {
-    "species": "Deepmaw",
-    "school": "HUNGER",
-    "name": "[What the basement is for.]",
-    "fileCap": 48,
-    "difficulty": 3,
-    "cards": ["devour", "strangle", "the_basement"],
-    "script": [
-      { "telegraph": "It rises through the floor.", "effects": [{ "type": "fill", "amount": 7 }] },
-      { "telegraph": "It does not eat. Yet.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }] },
-      { "telegraph": "The orderlies do not return.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "It opens.", "effects": [{ "type": "fill", "amount": 10 }] }
-    ]
-  },
-  "Sproutkin": {
-    "species": "Sproutkin",
-    "school": "HUNGER",
-    "name": "[Keeps opening it.]",
-    "fileCap": 24,
-    "difficulty": 1,
-    "cards": ["from_the_wound", "grow_in", "bite"],
-    "script": [
-      { "telegraph": "She thanks staff.", "effects": [{ "type": "self_compress", "amount": 3 }] },
-      { "telegraph": "She reopens it.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "She cannot help.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 1 }, { "type": "fill", "amount": 3 }] }
-    ]
-  },
-  "Vinewyrm": {
-    "species": "Vinewyrm",
-    "school": "HUNGER",
-    "name": "[Crawled the length of the hall.]",
-    "fileCap": 32,
-    "difficulty": 2,
-    "cards": ["strangle", "grow_in", "devour"],
-    "script": [
-      { "telegraph": "She lowers herself.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 2 }] },
-      { "telegraph": "She crawls forward.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "She catches up.", "effects": [{ "type": "fill", "amount": 8 }] }
-    ]
-  },
-  "Bloomback": {
-    "species": "Bloomback",
-    "school": "HUNGER",
-    "name": "[Garden in him.]",
-    "fileCap": 44,
-    "difficulty": 3,
-    "cards": ["grow_in", "from_the_wound", "the_basement"],
-    "script": [
-      { "telegraph": "He prunes it.", "effects": [{ "type": "self_compress", "amount": 4 }] },
-      { "telegraph": "It is growing in nicely.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 3 }] },
-      { "telegraph": "He shows you.", "effects": [{ "type": "fill", "amount": 8 }] },
-      { "telegraph": "Smells of [[8]].", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "DRAINED", "stacks": 1 }] }
-    ]
-  },
-
-  "Brineback": {
-    "species": "Brineback",
-    "school": "STILLNESS",
-    "name": "[Husband kept her.]",
-    "fileCap": 36,
-    "difficulty": 2,
-    "cards": ["compress_l", "held", "the_shell"],
-    "script": [
-      { "telegraph": "He has not let go.", "effects": [{ "type": "self_compress", "amount": 5 }] },
-      { "telegraph": "She is still.", "effects": [{ "type": "condition", "id": "SEDATED", "stacks": 1 }] },
-      { "telegraph": "The linens hold.", "effects": [{ "type": "fill", "amount": 6 }] }
-    ]
-  },
-  "Coralhusk": {
-    "species": "Coralhusk",
-    "school": "STILLNESS",
-    "name": "[Shell that answers.]",
-    "fileCap": 26,
-    "difficulty": 1,
-    "cards": ["refuse", "the_shell", "long_memory"],
-    "script": [
-      { "telegraph": "She responds to her name.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "She does not respond.", "effects": [{ "type": "self_compress", "amount": 4 }] },
-      { "telegraph": "Three months.", "effects": [{ "type": "condition", "id": "SEDATED", "stacks": 2 }] }
-    ]
-  },
-  "Loamback": {
-    "species": "Loamback",
-    "school": "STILLNESS",
-    "name": "[On the waiting list.]",
-    "fileCap": 22,
-    "difficulty": 1,
-    "cards": ["wait", "long_memory", "compress_l"],
-    "script": [
-      { "telegraph": "Since 1981.", "effects": [{ "type": "self_compress", "amount": 3 }] },
-      { "telegraph": "She is the number she is.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "She accepts the name.", "effects": [{ "type": "condition", "id": "SEDATED", "stacks": 1 }] }
-    ]
-  },
-  "Mosshorn": {
-    "species": "Mosshorn",
-    "school": "STILLNESS",
-    "name": "[Moved overnight.]",
-    "fileCap": 38,
-    "difficulty": 2,
-    "cards": ["wait", "the_shell", "long_memory"],
-    "script": [
-      { "telegraph": "He has not moved since 1972.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 3 }] },
-      { "telegraph": "Subject was at the window.", "effects": [{ "type": "fill", "amount": 7 }] },
-      { "telegraph": "Staff will not say.", "effects": [{ "type": "condition", "id": "SEDATED", "stacks": 1 }, { "type": "fill", "amount": 3 }] }
-    ]
-  },
-  "Halowyrm": {
-    "species": "Halowyrm",
-    "school": "STILLNESS",
-    "name": "[Shines through her gown.]",
-    "fileCap": 34,
-    "difficulty": 2,
-    "cards": ["long_memory", "refuse", "compress_l"],
-    "script": [
-      { "telegraph": "The chest cavity emits.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "Staff dim the lights.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 2 }] },
-      { "telegraph": "Something is inside.", "effects": [{ "type": "fill", "amount": 4 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] }
-    ]
+  "Magmaw": {
+    "species": "Magmaw",
+    "school": "INTRUSION",
+    "ambient": "dread",
+    "see_line": "He faces the door. He has been waiting for it to open. ~~It opens.~~"
   },
   "Soothlick": {
     "species": "Soothlick",
     "school": "STILLNESS",
-    "name": "[Tucks them in at night.]",
-    "fileCap": 32,
-    "difficulty": 2,
-    "cards": ["held", "long_memory", "wait"],
-    "script": [
-      { "telegraph": "She does not turn the handle.", "effects": [{ "type": "condition", "id": "SEDATED", "stacks": 2 }] },
-      { "telegraph": "Patients sleep better.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "They do not wake all the way.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "DRAINED", "stacks": 1 }] }
-    ]
+    "ambient": "wandering",
+    "see_line": "She is not here. The bed is **freshly tucked**."
   },
-
+  "Charnel": {
+    "species": "Charnel",
+    "school": "HUNGER",
+    "ambient": "noisy",
+    "see_line": "She is standing. She has not sat down in [[6]] days."
+  },
   "Tidewhelp": {
     "species": "Tidewhelp",
     "school": "DISSOCIATION",
-    "name": "[Brother came back wrong.]",
-    "fileCap": 24,
-    "difficulty": 1,
-    "cards": ["substitute", "came_back_wrong", "doubt"],
-    "script": [
-      { "telegraph": "The brother is sure.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "It does not eat.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 1 }] },
-      { "telegraph": "It does not appear to need to.", "effects": [{ "type": "fill", "amount": 5 }] }
-    ]
+    "ambient": "silent",
+    "see_line": "He is at the window. He is the brother. He is the patient."
   },
   "Rivergeist": {
     "species": "Rivergeist",
     "school": "DISSOCIATION",
-    "name": "[Keeps leaving.]",
-    "fileCap": 40,
-    "difficulty": 3,
-    "cards": ["slip", "doubt", "the_other_one"],
-    "script": [
-      { "telegraph": "She tries the door.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "She does not remember the others.", "effects": [{ "type": "self_cleanse" }] },
-      { "telegraph": "The same place she came from.", "effects": [{ "type": "fill", "amount": 7 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] },
-      { "telegraph": "She begins again.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }] }
-    ]
+    "ambient": "wandering",
+    "see_line": "She is not here. The bed-rail has been bent open ~~again~~."
+  },
+  "Brineback": {
+    "species": "Brineback",
+    "school": "STILLNESS",
+    "ambient": "silent",
+    "see_line": "He is in the bed. He has been here since the linens came in."
   },
   "Mireling": {
     "species": "Mireling",
     "school": "DISSOCIATION",
-    "name": "[Asks about the pond.]",
-    "fileCap": 26,
-    "difficulty": 1,
-    "cards": ["the_other_one", "doubt", "substitute"],
-    "script": [
-      { "telegraph": "There is no pond.", "effects": [{ "type": "fill", "amount": 3 }] },
-      { "telegraph": "She specifies a statue.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }] },
-      { "telegraph": "She put something in.", "effects": [{ "type": "fill", "amount": 5 }] }
-    ]
+    "ambient": "silent",
+    "see_line": "She is asking about the pond. The pond is not on the floor plan."
   },
-  "Hollowoak": {
-    "species": "Hollowoak",
-    "school": "DISSOCIATION",
-    "name": "[Cannot remember names.]",
-    "fileCap": 36,
-    "difficulty": 2,
-    "cards": ["doubt", "slip", "substitute"],
-    "script": [
-      { "telegraph": "She thanks staff for the visits.", "effects": [{ "type": "self_compress", "amount": 4 }] },
-      { "telegraph": "She gives the orderly's name.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] },
-      { "telegraph": "The room next door is empty.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 1 }] }
-    ]
+  "Coralhusk": {
+    "species": "Coralhusk",
+    "school": "STILLNESS",
+    "ambient": "silent",
+    "see_line": "She turns her head. She does not say her name."
   },
-  "Wraithfin": {
-    "species": "Wraithfin",
-    "school": "DISSOCIATION",
-    "name": "[Surviving twin.]",
-    "fileCap": 34,
-    "difficulty": 2,
-    "cards": ["came_back_wrong", "the_other_one", "echo"],
-    "script": [
-      { "telegraph": "She is the other one.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "Each time. The same.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "Her signature on the certificate.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 2 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] }
-    ]
+  "Frostfin": {
+    "species": "Frostfin",
+    "school": "GRIEF",
+    "ambient": "cold",
+    "see_line": "She is on the bench. The bench is in her room. The room is cold."
   },
-  "Shadowmaw": {
-    "species": "Shadowmaw",
-    "school": "DISSOCIATION",
-    "name": "[Heard us.]",
-    "fileCap": 42,
-    "difficulty": 3,
-    "cards": ["echo", "came_back_wrong", "slip"],
-    "script": [
-      { "telegraph": "He uses our names.", "effects": [{ "type": "fill", "amount": 6 }] },
-      { "telegraph": "He returns what we said.", "effects": [{ "type": "fill", "amount": 4 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "He learns the next one.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] },
-      { "telegraph": "He waits.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 2 }] }
-    ]
+  "Deepmaw": {
+    "species": "Deepmaw",
+    "school": "HUNGER",
+    "ambient": "dread",
+    "see_line": "She is below. The room smells of ~~the basement~~ wet stone."
   },
-
-  "Magmaw": {
-    "species": "Magmaw",
-    "school": "INTRUSION",
-    "name": "[Door he opened.]",
-    "fileCap": 32,
-    "difficulty": 2,
-    "cards": ["open_the_door", "hex", "the_visit"],
-    "script": [
-      { "telegraph": "He listens at the corridor.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "He describes it.", "effects": [{ "type": "condition", "id": "BROKEN", "stacks": 2 }] },
-      { "telegraph": "The page is missing.", "effects": [{ "type": "fill", "amount": 3 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] }
-    ]
+  "Loamback": {
+    "species": "Loamback",
+    "school": "STILLNESS",
+    "ambient": "silent",
+    "see_line": "She is sitting. The wall clock says 1981."
+  },
+  "Sproutkin": {
+    "species": "Sproutkin",
+    "school": "HUNGER",
+    "ambient": "noisy",
+    "see_line": "She is re-opening the bandage. The room smells of iron."
+  },
+  "Mosshorn": {
+    "species": "Mosshorn",
+    "school": "STILLNESS",
+    "ambient": "silent",
+    "see_line": "He is at the window. He is at the bed. He is at the door."
+  },
+  "Vinewyrm": {
+    "species": "Vinewyrm",
+    "school": "HUNGER",
+    "ambient": "wandering",
+    "see_line": "She is in the corner. She is on the floor. She has not used the legs."
+  },
+  "Bloomback": {
+    "species": "Bloomback",
+    "school": "HUNGER",
+    "ambient": "dread",
+    "see_line": "He is sitting up. He is **showing you** something growing."
   },
   "Thornling": {
     "species": "Thornling",
     "school": "INTRUSION",
-    "name": "[Three orderlies. So far.]",
-    "fileCap": 22,
-    "difficulty": 1,
-    "cards": ["marginalia", "open_the_door", "hex"],
-    "script": [
-      { "telegraph": "She apologizes.", "effects": [{ "type": "self_compress", "amount": 2 }] },
-      { "telegraph": "She is small.", "effects": [{ "type": "fill", "amount": 3 }] },
-      { "telegraph": "Three. So far.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] }
-    ]
+    "ambient": "noisy",
+    "see_line": "She is small. The wall behind her has [[3]] punctures."
   },
-  "Voidling": {
-    "species": "Voidling",
-    "school": "INTRUSION",
-    "name": "[Thing in the closet.]",
-    "fileCap": 24,
-    "difficulty": 1,
-    "cards": ["keep_it_quiet", "the_closet", "the_visit"],
-    "script": [
-      { "telegraph": "He kept it.", "effects": [{ "type": "fill", "amount": 3 }] },
-      { "telegraph": "It has grown.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "He calls it a name.", "effects": [{ "type": "condition", "id": "SEDATED", "stacks": 1 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] }
-    ]
-  },
-  "Nightcreep": {
-    "species": "Nightcreep",
-    "school": "INTRUSION",
-    "name": "[Arrived after [[6]].]",
-    "fileCap": 30,
-    "difficulty": 2,
-    "cards": ["keep_it_quiet", "marginalia", "hex"],
-    "script": [
-      { "telegraph": "She does not sign in.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }] },
-      { "telegraph": "The chair is still warm.", "effects": [{ "type": "fill", "amount": 5 }] },
-      { "telegraph": "Whoever brought her left.", "effects": [{ "type": "fill", "amount": 4 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] }
-    ]
-  },
-  "Umbragale": {
-    "species": "Umbragale",
-    "school": "INTRUSION",
-    "name": "[House that visits her.]",
-    "fileCap": 44,
-    "difficulty": 3,
-    "cards": ["the_visit", "hex", "the_closet"],
-    "script": [
-      { "telegraph": "She draws it.", "effects": [{ "type": "condition", "id": "FEVERING", "stacks": 1 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] },
-      { "telegraph": "It is at the address.", "effects": [{ "type": "fill", "amount": 7 }] },
-      { "telegraph": "Same windows. Same number.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "It has come for her.", "effects": [{ "type": "fill", "amount": 8 }] }
-    ]
+  "Hollowoak": {
+    "species": "Hollowoak",
+    "school": "DISSOCIATION",
+    "ambient": "silent",
+    "see_line": "She is in the chair. She is asking after her daughter. The daughter is the next room."
   },
   "Aurabeast": {
     "species": "Aurabeast",
     "school": "INTRUSION",
-    "name": "[Took the notes.]",
-    "fileCap": 34,
-    "difficulty": 2,
-    "cards": ["marginalia", "the_visit", "the_closet"],
-    "script": [
-      { "telegraph": "He continues to write.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "The page is blank.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }] },
-      { "telegraph": "Staff find their words in his hand.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "condition", "id": "BROKEN", "stacks": 1 }] }
-    ]
+    "ambient": "dread",
+    "see_line": "He is writing. The page is blank. He is writing in **your hand**."
   },
-
-  "the_attending": {
-    "species": "the_attending",
-    "school": "BOSS",
-    "name": "[The Attending.]",
-    "fileCap": 80,
-    "difficulty": 4,
-    "isBoss": true,
-    "cards": [],
-    "script": [
-      { "telegraph": "They open your file.", "effects": [{ "type": "fill", "amount": 4 }] },
-      { "telegraph": "They read aloud.", "effects": [{ "type": "fill", "amount": 6 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "They sign it for you.", "effects": [{ "type": "condition", "id": "BROKEN", "stacks": 2 }] },
-      { "telegraph": "They turn the page.", "effects": [{ "type": "fill", "amount": 5 }, { "type": "fill", "amount": 5 }] },
-      { "telegraph": "Diagnosis attached.", "effects": [{ "type": "condition", "id": "DRAINED", "stacks": 2 }, { "type": "condition", "id": "FEVERING", "stacks": 1 }] },
-      { "telegraph": "They prepare admission.", "effects": [{ "type": "self_condition", "id": "MENDING", "stacks": 3 }] }
-    ]
+  "Dawnstag": {
+    "species": "Dawnstag",
+    "school": "GRIEF",
+    "ambient": "silent",
+    "see_line": "He is at the window. The window opens onto a room that is not on the plan."
+  },
+  "Halowyrm": {
+    "species": "Halowyrm",
+    "school": "STILLNESS",
+    "ambient": "cold",
+    "see_line": "She is glowing. She is in the dark. The room is cold."
+  },
+  "Glimmerfox": {
+    "species": "Glimmerfox",
+    "school": "GRIEF",
+    "ambient": "silent",
+    "see_line": "He is petting the floor. The floor is empty."
+  },
+  "Shadowmaw": {
+    "species": "Shadowmaw",
+    "school": "DISSOCIATION",
+    "ambient": "noisy",
+    "see_line": "He is sitting up. He is saying ~~your~~ a name. Quietly."
+  },
+  "Voidling": {
+    "species": "Voidling",
+    "school": "INTRUSION",
+    "ambient": "dread",
+    "see_line": "He is by the closet. The closet door is cracked. !!Something is breathing in there.!!"
+  },
+  "Nightcreep": {
+    "species": "Nightcreep",
+    "school": "INTRUSION",
+    "ambient": "wandering",
+    "see_line": "She is not here. The chair is **warm**."
+  },
+  "Wraithfin": {
+    "species": "Wraithfin",
+    "school": "DISSOCIATION",
+    "ambient": "silent",
+    "see_line": "She is in the bed. The other bed is also occupied. By her."
+  },
+  "Umbragale": {
+    "species": "Umbragale",
+    "school": "INTRUSION",
+    "ambient": "dread",
+    "see_line": "She is drawing on the wall. The drawing is **the door at the end of the hall**."
   }
 }

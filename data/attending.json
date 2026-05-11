@@ -1,0 +1,58 @@
+{
+  "_format": {
+    "note": "The Attending's behavior. Each night has a base PATROL ROUTE (a sequence of room IDs the Attending visits in order). They start at route[0]. They move 1 room per N time-units (speed). The route gets denser / faster across the 7 nights. Detection: if Attending is in same room as player and player is not HIDDEN, file gets one note and the night ends.",
+    "tuning": "Night 1: distant, slow, mostly stays in the south wing. Player should have many turns before any encounter. Night 7: fast and everywhere."
+  },
+  "voice": {
+    "approach_far": "Footsteps in {dir}. ~~Coming~~ Approaching.",
+    "approach_near": "Footsteps in the next room. ~~Close.~~ Here.",
+    "noted_seen": "The Attending sees you. The pen is out before you can speak.",
+    "noted_hidden": "The Attending passes through. The pen does not come out.",
+    "approach_blocked": "You hear a door close further down. Not toward you.",
+    "leave_room": "The Attending leaves. The room is quiet again.",
+    "approach_north": "footsteps approaching from the north.",
+    "approach_south": "footsteps approaching from the south.",
+    "approach_east": "footsteps approaching from the east.",
+    "approach_west": "footsteps approaching from the west.",
+    "approach_here": "the door opens.",
+    "passes_through": "the Attending passes through. the pen does not come out.",
+    "leaves_room": "the Attending closes the door behind them."
+  },
+  "nights": [
+    {
+      "night": 1,
+      "speed": 4,
+      "route": ["attending_office", "s_hall_2", "dayroom", "s_hall_2", "records", "s_hall_2", "attending_office", "attending_office", "s_hall_2", "s_hall_1", "s_hall_2", "attending_office"]
+    },
+    {
+      "night": 2,
+      "speed": 3,
+      "route": ["attending_office", "s_hall_2", "records", "s_hall_2", "s_hall_1", "s_hall_2", "dayroom", "s_hall_2", "attending_office", "s_hall_2", "s_hall_1", "bed", "s_hall_1", "s_hall_2", "attending_office"]
+    },
+    {
+      "night": 3,
+      "speed": 3,
+      "route": ["attending_office", "s_hall_2", "records", "s_hall_2", "s_hall_1", "bed", "w_hall_1", "bed", "e_hall_1", "bed", "s_hall_1", "s_hall_2", "dayroom", "s_hall_2", "attending_office"]
+    },
+    {
+      "night": 4,
+      "speed": 2,
+      "route": ["attending_office", "s_hall_2", "records", "s_hall_2", "s_hall_1", "bed", "n_hall_1", "n_hall_2", "n_hall_1", "bed", "w_hall_1", "w_hall_2", "w_hall_1", "bed", "e_hall_1", "e_hall_2", "e_hall_1", "bed", "s_hall_1", "s_hall_2", "attending_office"]
+    },
+    {
+      "night": 5,
+      "speed": 2,
+      "route": ["attending_office", "s_hall_2", "records", "s_hall_2", "dayroom", "s_hall_2", "s_hall_1", "bed", "n_hall_1", "n_hall_2", "n_ward_a", "n_hall_2", "chapel", "n_hall_2", "n_hall_1", "bed", "w_hall_1", "w_office", "w_hall_1", "w_hall_2", "w_hall_1", "bed", "e_hall_1", "e_supply", "e_hall_1", "e_hall_2", "e_hall_1", "bed", "s_hall_1"]
+    },
+    {
+      "night": 6,
+      "speed": 2,
+      "route": ["attending_office", "s_hall_2", "records", "s_hall_2", "s_hall_1", "bed", "n_hall_1", "n_hall_2", "chapel", "n_exit", "chapel", "n_hall_2", "n_hall_1", "bed", "w_hall_1", "w_hall_2", "w_hall_3", "w_exit", "w_hall_3", "w_hall_2", "w_hall_1", "bed", "e_hall_1", "e_hall_2", "e_hall_3", "e_exit", "e_hall_3", "e_hall_2", "e_hall_1", "bed", "s_hall_1", "s_hall_2"]
+    },
+    {
+      "night": 7,
+      "speed": 1,
+      "route": ["bed", "n_hall_1", "n_hall_2", "chapel", "n_exit", "chapel", "n_hall_2", "n_hall_1", "bed", "w_hall_1", "w_hall_2", "w_hall_3", "w_exit", "w_hall_3", "w_hall_2", "w_hall_1", "bed", "e_hall_1", "e_hall_2", "e_hall_3", "e_exit", "e_hall_3", "e_hall_2", "e_hall_1", "bed", "s_hall_1"]
+    }
+  ]
+}

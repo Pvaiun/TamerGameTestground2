@@ -1,14 +1,13 @@
-export const TOTAL_ROOMS = 10;
-export const COMPILE_ROOMS = new Set([3, 6, 9]);
-export const STARTING_HAND_SIZE = 5;
-export const STARTING_INSIGHT = 3;
-export const MAX_LOG = 60;
+export const TOTAL_NIGHTS = 7;
+export const NIGHT_LENGTH = 30;
+export const NOTES_WARNING = 6;
+export const NOTES_FATAL = 12;
+export const MAX_LOG = 80;
 
 export const state = {
   screen: 'start',
   run: null,
-  battle: null,
-  ui: { selectedHandIdx: -1, hovered: null, animQueue: [] },
+  world: null,
   pending: null,
   log: [],
   archive: null,
@@ -31,11 +30,10 @@ export function clearLog() { state.log.length = 0; }
 
 export function resetRun() {
   state.run = null;
-  state.battle = null;
+  state.world = null;
   state.pending = null;
-  state.ui = { selectedHandIdx: -1, hovered: null, animQueue: [] };
   state.log = [];
 }
 
-let cardInstanceCounter = 1;
-export function nextInstanceId() { return cardInstanceCounter++; }
+let instanceCounter = 1;
+export function nextInstanceId() { return instanceCounter++; }
